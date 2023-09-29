@@ -28,8 +28,8 @@ app.layout = html.Div(children=[html.H1("Airline Performance Dashboard",
                                 ])
 
 # add callback decorator
-@app.callback(Output(),
-               Input())
+@app.callback(Output(component_id='line-plot', component_property= 'figure'),
+               Input(component_id='input-year', component_property='value'))
 
 # Add computation to callback function and return graph
 def get_graph(entered_year):
@@ -40,7 +40,7 @@ def get_graph(entered_year):
     line_data = df.groupby('Month')['ArrDelay'].mean().reset_index()
     
     # 
-    fig = go.Figure(data= go.scatter(x=line_data['Month'], y = line_data['ArrDelay'], mode='lines', marker=dict(color='green')) )
+    fig = go.Figure(data= go.Scatter(x=line_data['Month'], y = line_data['ArrDelay'], mode='lines', marker=dict(color='green')) )
     fig.update_layout(title= 'Month vs Average Flight Delay Time', xaxis_title= 'Month', yaxis_title='ArrDelay')
     return fig
 
