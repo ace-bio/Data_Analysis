@@ -19,9 +19,33 @@ app = dash.Dash(__name__)
 # Finally, add graph component.
 app.layout = html.Div(children=[html.H1("Airline Performance Dashboard",
                                         style = {'align': "center", "color": '#503036', "font-size": 40}),
-                                html.Div(["Input Year", dcc.Input(),], 
-                                style={}),
+                                html.Div(["Input Year", dcc.Input( id ='input-year', value= 2010,
+                                                                  type ='number', style = {'height': '50px', 'font-size':35}),], 
+                                style={'font-size': 40}),
                                 html.Br(),
                                 html.Br(),
-                                html.Div(),
+                                html.Div(dcc.Graph(id='line-plot')),
                                 ])
+
+# add callback decorator
+@app.callback(Output(),
+               Input())
+
+# Add computation to callback function and return graph
+def get_graph(entered_year):
+    # Select data based on the entered year
+    df =  airline_data[airline_data['Year']==int(entered_year)]
+    
+    # Group the data by Month and compute the average over arrival delay time.
+    line_data = df.groupby('Month')['ArrDelay'].mean().reset_index()
+    
+    # 
+    fig = go.Figure(data= go.scatter(x=line_data['Month'], y = line_data['ArrDelay'], mode='lines', marker=dict(color='green')) )
+    fig.update_layout(title= 'Month vs Average Flight Delay Time', xaxis_title= 'Month', yaxis_title='ArrDelay')
+    return fig
+
+
+#Run the app
+
+if __name__ == '__main__':
+    app.run_server()
