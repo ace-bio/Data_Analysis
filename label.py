@@ -7,28 +7,28 @@ out on the samples'''
 import pandas as pd
 
 # create an empty list for all the columns
-BPW = []
-RVS = []
-seleniteF = []
-RVS_SSA = []
-RVS_XLD = []
-SF_SSA = []
-SF_XLD = []
-MH = []
+Col1 = []
+Col2 = []
+Col3 = []
+Col4 = []
+Col5 = []
+Col6 = []
+Col7 = []
+Col8 = []
 
 #using  a for loop, append labels(sample no & Alphabets) to each key list
 for x in range(1,200):
-    BPW.append(str(x)+"A")
-    RVS.append(str(x)+"B")
-    seleniteF.append(str(x)+"C")
-    RVS_SSA.append(str(x)+"D")
-    RVS_XLD.append(str(x)+"E")
-    SF_SSA.append(str(x)+"F")
-    SF_XLD.append(str(x)+"G")
-    MH.append(str(x)+"H")
+    Col1.append(str(x)+"A")
+    Col2.append(str(x)+"B")
+    Col3.append(str(x)+"C")
+    Col4.append(str(x)+"D")
+    Col5.append(str(x)+"E")
+    Col6.append(str(x)+"F")
+    Col7.append(str(x)+"G")
+    Col8.append(str(x)+"H")
 
 #create a dictionary values list using the column list variables
-values = [BPW,RVS,seleniteF,RVS_SSA,RVS_XLD,SF_SSA,SF_XLD, MH]
+values = [Col1,Col2,Col3,Col4,Col5,Col6,Col7,Col8]
 
 # create a list of keys, this is the column names
 keys = ['BPW', 'RVS', 'seleniteF', 'RVS_SSA', 'RVS_XLD', 'SF_SSA', 'SF_XLD', 'MH']
@@ -41,6 +41,5 @@ df = pd.DataFrame.from_dict(my_dict, orient='index')
 #Transpose the dictionary
 df1 = pd.DataFrame(data=df).T
 
-df1.head(10)
 # save df1 as csv
 df1.to_csv('Experimental labels.csv', sep=',', index = False)
