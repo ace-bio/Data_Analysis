@@ -1,4 +1,4 @@
-'''This is a python code that aims to generate a csv table
+'''This is a python code that aims to create a csv table
 that generate sample labeling ids. The row contains the number
 of samples,the columns are the various tests/procedures carried
 out on the samples'''
@@ -6,35 +6,29 @@ out on the samples'''
 # import dependencies
 import pandas as pd
 
-# create an empty list for all the columns
-Col1 = []
-Col2 = []
-Col3 = []
-Col4 = []
-Col5 = []
-Col6 = []
-Col7 = []
-Col8 = []
+# Takes input of no of columns and rows
+No_of_cols = int(input("How many column labels would you work with?"))
+No_of_rows = int(input("How many Samples would you work with?"))
 
-#using  a for loop, append labels(sample no & Alphabets) to each key list
-for x in range(1,200):
-    Col1.append(str(x)+"A")
-    Col2.append(str(x)+"B")
-    Col3.append(str(x)+"C")
-    Col4.append(str(x)+"D")
-    Col5.append(str(x)+"E")
-    Col6.append(str(x)+"F")
-    Col7.append(str(x)+"G")
-    Col8.append(str(x)+"H")
+# create an empty list for the column names and the lists of the columns value
+list_of_cols = []
+list_list_col = []
 
-#create a dictionary values list using the column list variables
-values = [Col1,Col2,Col3,Col4,Col5,Col6,Col7,Col8]
+# Populate the list of column name by taking inputs of the column name from users
+for col in range(1,No_of_cols+1):
+    col = str(input("Enter a short column attribute(please use abbreviations)"))
+    list_of_cols.append(col)
 
-# create a list of keys, this is the column names
-keys = ['BPW', 'RVS', 'seleniteF', 'RVS_SSA', 'RVS_XLD', 'SF_SSA', 'SF_XLD', 'MH']
+# using a nested list create a list of list and append to the lists of list of values
+for col in list_of_cols:
+    col_list = []
+    for no in range(1, No_of_rows+1):
+        id = str(no)+col
+        col_list.append(id)
+    list_list_col.append(col_list)
 
-# convert keys and values list to a dictionary
-my_dict = dict(zip(keys,values))
+# create a dictionary
+my_dict = dict(zip(list_of_cols, list_list_col))
 
 # convert dictionary to a dataframe
 df = pd.DataFrame.from_dict(my_dict, orient='index')
